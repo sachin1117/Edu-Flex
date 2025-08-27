@@ -7,7 +7,7 @@ export default defineConfig({
   server: {        
     proxy: {
       "/api": {
-        target: "https://edu-flex.onrender.com",
+        target: "https://edu-flex.onrender.com/",
         changeOrigin: true,
         secure: false,
       },
