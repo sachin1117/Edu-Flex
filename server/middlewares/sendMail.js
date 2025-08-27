@@ -1,4 +1,92 @@
 import { createTransport } from "nodemailer";
+import jwt from "jsonwebtoken";
+
+const transport = createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  auth: {
+    user: process.env.Gmail,
+    pass: process.env.Password,
+  },
+});
+
+
+const generateToken = (payload, expiresIn) => {
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn });
+};
+
+
+export const sendOtpMail = async (email, subject, data) => {
+  const token = generateToken({ email, otp: data.otp }, "5m");
+
+  const html = `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Edu-Flex OTP Verification</title>
+    <style>/* same css you gave */</style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">📚 Edu-Flex Platform</div>
+      <h1>🔐 OTP Verification</h1>
+      <p>Hello <strong>${data.name}</strong>,</p>
+      <p>Please use the following OTP. This is valid for <strong>5 minutes</strong>.</p>
+      <div class="otp-box"><p class="otp">${data.otp}</p></div>
+      <a href="${process.env.frontendurl}/verify?token=${token}" class="cta-btn">Verify Now</a>
+      <div class="footer">
+        <p>If you didn’t request this OTP, ignore this email.</p>
+        <p>© 2025 Edu-Flex Platform</p>
+      </div>
+    </div>
+  </body>
+  </html>`;
+
+  await transport.sendMail({
+    from: process.env.Gmail,
+    to: email,
+    subject,
+    html,
+  });
+};
+
+
+export const sendForgotMail = async (email, subject, data) => {
+  const token = generateToken({ email, token: data.token }, "15m");
+
+  const html = `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Reset Your Password</title>
+    <style>/* same css you gave */</style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">📚 Edu-Flex Platform</div>
+      <h1>🔑 Reset Your Password</h1>
+      <p>Hello,</p>
+      <p>You requested to reset your password. Click below:</p>
+      <a href="${process.env.frontendurl}/reset-password/${token}" class="button">Reset Password</a>
+      <p>If you did not request this, please ignore this email.</p>
+      <div class="footer">
+        <p>Thank you,<br>Edu-Flex Team</p>
+        <p><a href="https://edu-flex-1.onrender.com">Edu-Flex</a></p>
+      </div>
+    </div>
+  </body>
+  </html>`;
+
+  await transport.sendMail({
+    from: process.env.Gmail,
+    to: email,
+    subject,
+    html,
+  });
+};
+import { createTransport } from "nodemailer";
 
 const sendMail = async (email, subject, data) => {
   const transport = createTransport({
