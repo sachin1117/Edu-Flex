@@ -10,6 +10,7 @@ import { CourseContextProvider } from "./context/CourseContext.jsx";
 export const server = "https://edu-flex.onrender.com";
 
 
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <UserContextProvider>
