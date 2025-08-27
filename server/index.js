@@ -20,7 +20,7 @@ const port = process.env.PORT;
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",        
+      "https://edu-flex-1.onrender.com/",        
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "token"],
