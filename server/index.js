@@ -20,13 +20,14 @@ const port = process.env.PORT;
 app.use(
   cors({
     origin: [
-      "https://edu-flex-1.onrender.com/",        
+      "https://edu-flex-1.onrender.com",  
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "token"],
     credentials: true,
   })
 );
+
 
 // using middlewares
 app.use(express.json());
