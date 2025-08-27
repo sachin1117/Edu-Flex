@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+.lecture-page {
+  display: flex;
+  gap: 30px;
+  min-height: 80vh;
+  padding: 30px 20px;
+  background-color: #F9FAFB;
+  font-family: 'Inter', sans-serif;
+}
+
+.lecture-page .left {
+  flex: 7;
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lecture-page .left video {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.lecture-page .left h1 {
+  font-size: 1.8rem;
+  color: #1F2937;
+  font-weight: 700;
+  margin: 0;
+}
+
+.lecture-page .left h3 {
+  font-size: 1.1rem;
+  color: #6B7280;
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.lecture-page .right {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lecture-page .right .add-btn {
+  background: linear-gradient(to right, #6D28D9, #8B5CF6);
+  color: white;
+  border-radius: 8px;
+  padding: 12px 20px;
+  transition: all 0.3s ease;
+  outline: none;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(109, 40, 217, 0.2);
+  align-self: flex-start;
+}
+
+.lecture-page .right .add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(109, 40, 217, 0.3);
+  background: linear-gradient(to right, #5B21B6, #7C3AED);
+}
+
+.lecture-page .lecture-form {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.lecture-page .lecture-form h2 {
+  font-size: 1.5rem;
+  color: #1F2937;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.lecture-page .lecture-form form {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.lecture-page .lecture-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.lecture-page .lecture-form input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #E5E7EB;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.lecture-page .lecture-form input:focus {
+  border-color: #8B5CF6;
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+}
+
+.lecture-page .lecture-form button {
+  background: linear-gradient(to right, #6D28D9, #8B5CF6);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.lecture-page .lecture-form button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(109, 40, 217, 0.3);
+  background: linear-gradient(to right, #5B21B6, #7C3AED);
+}
+
+.lecture-page .lecture-form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.lecture-page .lecture-number {
+  background-color: #fff;
+  padding: 15px;
+  border: 2px solid #E5E7EB;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.lecture-page .lecture-number:hover {
+  border-color: #8B5CF6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lecture-page .lecture-number.active {
+  background: linear-gradient(to right, #6D28D9, #8B5CF6);
+  color: #fff;
+  border-color: #6D28D9;
+}
+
+.lecture-page .delete-btn {
+  background: #EF4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+}
+
+.lecture-page .delete-btn:hover {
+  background: #DC2626;
+  transform: translateY(-1px);
+}
+
+.lecture-page .video-preview {
+  margin-top: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .lecture-page {
+    flex-direction: column;
+    padding: 20px 15px;
+    gap: 20px;
+  }
+  
+  .lecture-page .left,
+  .lecture-page .right {
+    width: 100%;
+  }
+  
+  .lecture-page .right {
+    order: -1;
+  }
+  
+  .lecture-page .left h1 {
+    font-size: 1.5rem;
+  }
+  
+  .lecture-page .lecture-form {
+    padding: 20px;
+  }
+}

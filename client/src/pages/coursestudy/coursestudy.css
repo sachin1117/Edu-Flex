@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+.course-study-page {
+  padding: 40px 20px;
+  background-color: #F9FAFB;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+  font-family: 'Inter', sans-serif;
+}
+
+.course-study-page img {
+  width: 100%;
+  max-width: 400px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.course-study-page img:hover {
+  transform: scale(1.02);
+}
+
+.course-study-page h2 {
+  font-size: 2.2rem;
+  color: #1F2937;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 15px;
+  line-height: 1.3;
+}
+
+.course-study-page h4 {
+  font-size: 1.2rem;
+  color: #4B5563;
+  text-align: center;
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto 20px;
+}
+
+.course-study-page h5 {
+  font-size: 1rem;
+  color: #6B7280;
+  text-align: center;
+  font-weight: 500;
+  margin: 8px 0;
+}
+
+.course-study-page a {
+  text-decoration: none;
+  background: linear-gradient(to right, #6D28D9, #8B5CF6);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 12px;
+  border: none;
+  transition: all 0.3s ease;
+  margin-top: 30px;
+  box-shadow: 0 4px 6px rgba(109, 40, 217, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.course-study-page a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(109, 40, 217, 0.3);
+  background: linear-gradient(to right, #5B21B6, #7C3AED);
+}
+
+.course-study-page a:active {
+  transform: translateY(0);
+}
+
+.course-study-page .course-meta {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin: 20px 0;
+  max-width: 500px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .course-study-page {
+    padding: 30px 15px;
+  }
+  
+  .course-study-page h2 {
+    font-size: 1.8rem;
+  }
+  
+  .course-study-page h4 {
+    font-size: 1.1rem;
+  }
+  
+  .course-study-page img {
+    max-width: 100%;
+    height: 200px;
+  }
+  
+  .course-study-page a {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+  
+  .course-study-page .course-meta {
+    padding: 20px;
+  }
+}

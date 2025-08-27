@@ -1,0 +1,150 @@
+.testimonials {
+  padding: 100px 0;
+  background-color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+}
+
+.testimonials h2 {
+  font-size: 3rem;
+  color: #1F2937;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.testimonials-subtitle {
+  font-size: 1.2rem;
+  color: #6B7280;
+  max-width: 600px;
+  margin: 0 auto 80px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.testimonials-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.testimonials-card {
+  background: #FFFFFF;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 40px 32px;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #F3F4F6;
+}
+
+.testimonials-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+.testimonials-card::before {
+  content: '"';
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 4rem;
+  color: #F8FAFC;
+  font-family: Georgia, serif;
+  line-height: 1;
+  z-index: 0;
+}
+
+.student-image {
+  margin-bottom: 24px;
+  z-index: 1;
+}
+
+.student-image img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #E5E7EB;
+  transition: all 0.3s ease;
+}
+
+.testimonials-card:hover .student-image img {
+  border-color: #2563EB;
+}
+
+.message {
+  font-size: 1rem;
+  color: #6B7280;
+  margin-bottom: 24px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+  flex-grow: 1;
+}
+
+.info {
+  z-index: 1;
+}
+
+.name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 8px;
+}
+
+.position {
+  font-size: 0.9rem;
+  color: #2563EB;
+  font-weight: 500;
+}
+
+/* Rating stars */
+.rating {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  z-index: 1;
+}
+
+.star {
+  color: #F59E0B;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .testimonials {
+    padding: 80px 0;
+  }
+  
+  .testimonials h2 {
+    font-size: 2.2rem;
+  }
+  
+  .testimonials-cards {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+    gap: 24px;
+  }
+  
+  .testimonials-card {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonials h2 {
+    font-size: 1.8rem;
+  }
+  
+  .testimonials-subtitle {
+    font-size: 1rem;
+  }
+}

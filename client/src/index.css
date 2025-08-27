@@ -1,0 +1,27 @@
+/* Keep your existing selection styles */
+html::selection,
+body::selection {
+  background-color: rgba(139, 92, 246, 0.3);
+}
+
+/* Add smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Remove default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set base font size for rem calculations */
+html {
+  font-size: 16px;
+}
+
+/* Ensure full height for layout */
+body, #root {
+  min-height: 100vh;
+}
