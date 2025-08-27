@@ -100,7 +100,7 @@ const sendMail = async (email, subject, data) => {
       <p class="otp">${data.otp}</p>
     </div>
 
-    <a href="https://your-elearning-site.com/verify" class="cta-btn">Verify Now</a>
+    <a href="https://edu-flex-1.onrender.com/verify" class="cta-btn">Verify Now</a>
 
     <div class="footer">
       <p>If you didn’t request this OTP, please ignore this email.</p>
