@@ -204,7 +204,7 @@ export const sendForgotMail = async (subject, data) => {
     <h1>🔑 Reset Your Password</h1>
     <p>Hello,</p>
     <p>You requested to reset your password. Please click the button below to continue:</p>
-    <a href="${https://edu-flex-1.onrender.com/}/reset-password/${data.token}" class="button">Reset Password</a>
+    <a href="${http://edu-flex-1.onrender.com/}/reset-password/${data.token}" class="button">Reset Password</a>
     <p>If you did not request this, please ignore this email.</p>
     <div class="footer">
       <p>Thank you,<br>Your Website Team</p>
