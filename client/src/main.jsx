@@ -6,7 +6,9 @@ import App from "./App.jsx";
 import { UserContextProvider } from "./context/UserContext";
 import { CourseContextProvider } from "./context/CourseContext.jsx";
 
-export const server = "https://edu-flex.onrender.com/";
+
+export const server = "https://edu-flex.onrender.com";
+
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
