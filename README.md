@@ -1,167 +1,138 @@
-🚀 Edu-Flex – Smart Learning Platform
+# 📚 Edu-Flex
 
-Edu-Flex is a modern and flexible online learning platform designed to make education accessible, interactive, and engaging.
-With a clean UI, intelligent chatbot support, payment integration, and modular features, Edu-Flex empowers learners and educators with seamless digital learning experiences.
+A modern, scalable **online learning platform** that provides an interactive and flexible education experience. Edu-Flex supports authentication, secure payments, and an intuitive frontend for learners.
 
-✨ Features
+🌐 **Live Demo:** [Edu-Flex on Render](https://edu-flex-1.onrender.com/)
+💻 **GitHub Repository:** [Edu-Flex Repo](https://github.com/sachin1117/Edu-Flex/tree/main)
 
-🎓 Course Management – Create, manage, and explore structured courses.
+---
 
-🤖 AI-Powered Chatbot – Smart assistant for instant learning support.
+## ✨ Features
 
-📚 Content Management System (CMS) – Simple yet powerful CMS for educators.
+* 🔐 **Authentication & Authorization** (JWT-based)
+* 📧 **Email Verification & Password Reset** (via Gmail SMTP)
+* 💳 **Payment Integration** with Razorpay
+* 🎓 **Course Management** for learners & instructors
+* 📱 **Frontend & Backend Integration**
+* 🚀 **Production-ready deployment** on Render
 
-💳 Payment Integration (Razorpay) – Secure payment gateway for course enrollments.
+---
 
-📧 Email Notifications – Automated email verification, password reset, and OTPs.
+## 🛠 Tech Stack
 
-📱 Responsive Design – Works smoothly on desktop, tablet, and mobile.
+* **Frontend:** React + Vite
+* **Backend:** Node.js + Express
+* **Database:** MongoDB (Atlas)
+* **Authentication:** JWT, Custom Secrets
+* **Payment Gateway:** Razorpay
+* **Email Service:** Gmail SMTP
 
-🔒 Secure & Scalable – Built with JWT authentication and MongoDB Atlas.
+---
 
-🎨 Modern UI/UX – Minimal, clean, and learner-friendly interface.
+## ⚙️ Installation & Setup
 
-🛠️ Tech Stack
+Clone the repository:
 
-Edu-Flex is built using cutting-edge web technologies:
+```bash
+ git clone https://github.com/sachin1117/Edu-Flex.git
+ cd Edu-Flex
+```
 
-Frontend: React.js, TailwindCSS
+Install dependencies:
 
-Backend: Node.js, Express.js
+```bash
+ npm install
+```
 
-Database: MongoDB Atlas
+---
 
-Authentication: JWT, Email Verification
+## 🔑 Environment Variables
 
-AI Chatbot: Botpress / OpenAI Integration
+Create a `.env` file in the root directory and add the following variables:
 
-Payments: Razorpay API
-
-Deployment: Vercel / Render / Netlify / Heroku
-
-📂 Project Structure
-Edu-Flex/
-│── frontend/        # React.js frontend
-│── backend/         # Express.js backend APIs
-│── chatbot/         # AI-powered chatbot integration
-│── cms/             # Content Management System
-│── assets/          # Images, icons, styles
-│── .env.example     # Example environment variables file
-│── README.md        # Documentation
-
-⚙️ Environment Variables
-
-Edu-Flex requires a .env file for configuration.
-⚠️ Never push your real .env file to GitHub. Use .env.example as a guide.
-
-Example .env file
-# ==============================
-# 🔌 Server Configuration
-# ==============================
+```env
 PORT=5000
+DB=<your-mongodb-connection-string>
 
-# ==============================
-# 🗄️ Database
-# ==============================
-DB=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+Activation_Secret=<your-activation-secret>
+Jwt_sec=<your-jwt-secret>
 
-# ==============================
-# 🔑 Authentication Secrets
-# ==============================
-Activation_Secret=activation_secret_key_12345
-Jwt_sec=jwt_secret_key_67890
-Forgot_Secret=forgot_secret_key_54321
+Gmail=<your-gmail-address>
+Password=<your-gmail-app-password>
 
-# ==============================
-# 📧 Email Service
-# ==============================
-Gmail=examplemail@gmail.com
-Password=app_password_123456
+Razorpay_Key=<your-razorpay-key>
+Razorpay_Secret=<your-razorpay-secret>
 
-# ==============================
-# 💳 Payment Gateway (Razorpay)
-# ==============================
-Razorpay_Key=rzp_test_randomKey12345
-Razorpay_Secret=randomSecret67890
-
-# ==============================
-# 🌐 Frontend URL
-# ==============================
+Forgot_Secret=<your-forgot-secret>
 frontendurl=http://localhost:5173
+```
 
+⚠️ Do **not** commit your `.env` file to version control!
 
-👉 For full details about each variable, check Environment Setup Guide
- (you can create this file if you want).
+---
 
-🚀 Getting Started
+## ▶️ Running the Project
 
-Follow these steps to set up Edu-Flex locally:
+Start the development server:
 
-1️⃣ Clone the Repository
-git clone https://github.com/sachin1117/Edu-Flex.git
-cd Edu-Flex
+```bash
+ npm run dev
+```
 
-2️⃣ Install Dependencies
-# Frontend
-cd frontend
-npm install
+The backend will run on: [http://localhost:5000](http://localhost:5000)
 
-# Backend
-cd ../backend
-npm install
+---
 
-3️⃣ Setup Environment Variables
+## 📡 API Endpoints
 
-Create .env in backend (use .env.example as reference).
+| Method | Endpoint             | Description               |
+| ------ | -------------------- | ------------------------- |
+| POST   | `/api/auth/register` | Register a new user       |
+| POST   | `/api/auth/login`    | User login (JWT issued)   |
+| POST   | `/api/payment/order` | Create Razorpay order     |
+| GET    | `/api/courses`       | Fetch all courses         |
+| GET    | `/api/user/profile`  | Fetch logged-in user info |
 
-4️⃣ Run the App
-# Start backend
-cd backend
-npm start
+---
 
-# Start frontend
-cd frontend
-npm start
+## 📂 Folder Structure
 
+```bash
+Edu-Flex/
+├── backend/              # Express server code
+│   ├── routes/           # API routes
+│   ├── controllers/      # Route handlers
+│   ├── models/           # Mongoose models
+│   └── utils/            # Helpers & middlewares
+├── frontend/             # React + Vite frontend
+└── .env                  # Environment variables (not committed)
+```
 
-👉 Frontend: http://localhost:5173
-👉 Backend: http://localhost:5000
+---
 
-📸 Screenshots
-Dashboard	Chatbot	Courses	Payments
+## 🤝 Contributing
 
-	
-	
-	
-🌍 Deployment
+Contributions are welcome! To contribute:
 
-You can deploy Edu-Flex easily using:
+1. Fork the repository
+2. Create a new branch (`feature/new-feature`)
+3. Commit your changes
+4. Push to your branch and open a Pull Request
 
-Frontend → Vercel / Netlify
+---
 
-Backend → Render / Heroku
+## 📧 Contact
 
-Database → MongoDB Atlas
+**Author:** Sachin
+📩 Email: *sachinkumar69355@gmail.com*
+🔗 GitHub: [sachin1117](https://github.com/sachin1117)
 
-🤝 Contributing
+---
 
-We welcome contributions to improve Edu-Flex! 🎉
+## 🚀 Next Steps
 
-Fork the repo
-
-Create a new branch (feature-new)
-
-Commit changes
-
-Push and create a Pull Request
-
-📜 License
-
-Edu-Flex is released under the MIT License.
-You are free to use, modify, and distribute it.
-
-👨‍💻 Author
-
-Sachin – GitHub Profile
-
-💡 Edu-Flex – Empowering Education with Technology!
+* ✅ Dockerize the application for containerized deployment
+* ✅ Add unit & integration tests (Jest / Mocha)
+* ✅ Implement CI/CD pipeline (GitHub Actions)
+* ✅ Scale MongoDB using Atlas sharding for production
+* ✅ Deploy frontend separately on Vercel/Netlify for better performance
