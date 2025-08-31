@@ -1,7 +1,6 @@
 import { createTransport } from "nodemailer";
 import jwt from "jsonwebtoken";
 
-// ✅ Nodemailer Transporter
 const transport = createTransport({
   host: "smtp.gmail.com",
   port: 465,
@@ -12,7 +11,6 @@ const transport = createTransport({
   },
 });
 
-// ✅ Helper: Generate JWT
 const generateToken = (payload, expiresIn) => {
   if (!process.env.JWT_SECRET) {
     throw new Error("❌ JWT_SECRET is required in .env");
@@ -20,12 +18,8 @@ const generateToken = (payload, expiresIn) => {
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn });
 };
 
-/* =====================================================
-   OTP Verification Mail
-   Used in: /user/register
-   ===================================================== */
 export const sendOtpMail = async (email, data) => {
-  const token = generateToken({ email, otp: data.otp }, "5m"); // token expires in 5 min
+  const token = generateToken({ email, otp: data.otp }, "5m");
 
   const html = `
   <div style="font-family:Poppins,Arial,sans-serif;background:#f5f7fb;padding:20px;text-align:center">
@@ -47,12 +41,8 @@ export const sendOtpMail = async (email, data) => {
   });
 };
 
-/* =====================================================
-   Forgot Password Mail
-   Used in: /user/forgot
-   ===================================================== */
 export const sendForgotMail = async (email) => {
-  const token = generateToken({ email }, "15m"); // token expires in 15 min
+  const token = generateToken({ email }, "15m");
 
   const html = `
   <div style="font-family:Poppins,Arial,sans-serif;background:#f4f6f9;padding:20px;text-align:center">
@@ -72,12 +62,8 @@ export const sendForgotMail = async (email) => {
   });
 };
 
-/* =====================================================
-   Resend Verification Link Mail
-   Used in: /user/resend
-   ===================================================== */
 export const sendResendMail = async (email, data) => {
-  const token = generateToken({ email }, "10m"); // token expires in 10 min
+  const token = generateToken({ email }, "10m");
 
   const html = `
   <div style="font-family:Poppins,Arial,sans-serif;background:#f5f7fb;padding:20px;text-align:center">
