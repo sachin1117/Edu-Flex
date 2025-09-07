@@ -39,7 +39,7 @@ export const register = TryCatch(async (req, res) => {
     otp,
   };
 
-  await sendMail(email, "Edu-Flex", data);
+  await sendOtpMail(email, data);
 
   res.status(200).json({
     message: "OTP send your mail",
@@ -166,4 +166,27 @@ export const resetPassword = TryCatch(async (req, res) => {
   res.json({
     message: "Password Reset Successfully",
   });
+});
+
+// Test email endpoint for debugging
+export const testEmail = TryCatch(async (req, res) => {
+  const { email } = req.body;
+  
+  if (!email) {
+    return res.status(400).json({
+      message: "Email is required for testing",
+    });
+  }
+
+  try {
+    await sendForgotMail(email, { email });
+    res.json({
+      message: "Test email sent successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to send test email",
+      error: error.message,
+    });
+  }
 });
