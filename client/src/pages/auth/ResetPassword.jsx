@@ -7,20 +7,32 @@ import { server } from '../../main';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [btnLoading, setBtnLoading] = useState(false);
   const navigate = useNavigate();
   const params = useParams()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+    
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    
     setBtnLoading(true);
     try {
-      const { data } = await axios.post(`${server}/api/user/reset?token=${params.token}`, { password });
+      const { data } = await axios.post(`${server}/api/user/reset/${params.token}`, { password });
       toast.success(data.message);
       navigate("/login");
       setBtnLoading(false);
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "An error occurred");
       setBtnLoading(false);
     }
   }
@@ -39,6 +51,19 @@ const ResetPassword = () => {
               className="form-control" 
               required 
               placeholder="Enter your new password"
+              minLength={6}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+            <input 
+              type="password" 
+              value={confirmPassword} 
+              onChange={(e) => setConfirmPassword(e.target.value)} 
+              className="form-control" 
+              required 
+              placeholder="Confirm your new password"
+              minLength={6}
             />
           </div>
           <button disabled={btnLoading}>

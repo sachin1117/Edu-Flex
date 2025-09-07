@@ -8,6 +8,6 @@ router.post("/user/verify", VerifyUser);
 router.post("/user/login", loginUser);
 router.get("/user/me", isAuth, myProfile);
 router.post("/user/forgot", forgotPassword);
-router.post("/user/reset", resetPassword);
+router.post("/user/reset/:token", resetPassword);
 
 export default router;

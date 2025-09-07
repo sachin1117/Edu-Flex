@@ -115,22 +115,29 @@ export const forgotPassword = TryCatch(async (req, res) => {
       message: "No User with this email",
     });
 
-  const token = jwt.sign({ email }, process.env.Forgot_Secret);
+  const data = { email };
 
-  const data = { email, token };
+  await sendForgotMail(email, data);
 
-  await sendForgotMail("E-Learning", data);
-
-  user.resetPasswordExpired = Date.now() + 5 * 60 * 1000;
+  user.resetPasswordExpired = Date.now() + 15 * 60 * 1000; // 15 minutes
 
   await user.save();
   res.json({
-    message: "Reset Password Link is send to you mail",
+    message: "Reset Password Link is sent to your email",
   });
 });
 
 export const resetPassword = TryCatch(async (req, res) => {
-  const decodedData = jwt.verify(req.query.token, process.env.Forgot_Secret);
+  const { token } = req.params;
+  const { password } = req.body;
+
+  if (!token) {
+    return res.status(400).json({
+      message: "Token is required",
+    });
+  }
+
+  const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
   const user = await User.findOne({ email: decodedData.email });
 
@@ -139,7 +146,7 @@ export const resetPassword = TryCatch(async (req, res) => {
       message: "No User with this email",
     });
 
-  if (user.resetPasswordExpired === null)
+  if (!user.resetPasswordExpired)
     return res.status(400).json({
       message: "Token Expired",
     });
@@ -149,15 +156,14 @@ export const resetPassword = TryCatch(async (req, res) => {
       message: "Token Expired",
     });
 
-  const password = await bcrypt.hash(req.body.password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  user.password = password;
-
+  user.password = hashedPassword;
   user.resetPasswordExpired = null;
 
   await user.save();
 
   res.json({
-    message: "Password Reset",
+    message: "Password Reset Successfully",
   });
 });

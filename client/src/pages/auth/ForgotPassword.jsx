@@ -19,7 +19,7 @@ const ForgotPassword = () => {
       navigate("/login");
       setBtnLoading(false);
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "An error occurred");
       setBtnLoading(false);
     }
   }

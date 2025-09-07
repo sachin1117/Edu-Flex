@@ -41,7 +41,7 @@ export const sendOtpMail = async (email, data) => {
   });
 };
 
-export const sendForgotMail = async (email) => {
+export const sendForgotMail = async (email, data) => {
   const token = generateToken({ email }, "15m");
 
   const html = `
@@ -49,7 +49,7 @@ export const sendForgotMail = async (email) => {
     <div style="max-width:600px;margin:auto;background:#fff;padding:40px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.1)">
       <h2 style="color:#4a4ae6;">🔑 Reset Your Password</h2>
       <p>Click the button below to reset your password (valid 15 minutes):</p>
-      <a href="${process.env.frontendurl}/reset-password?token=${token}" 
+      <a href="${process.env.frontendurl}/reset-password/${token}" 
          style="background:#6a5acd;color:#fff;text-decoration:none;padding:14px 32px;border-radius:30px;font-weight:bold;">Reset Password</a>
     </div>
   </div>`;
