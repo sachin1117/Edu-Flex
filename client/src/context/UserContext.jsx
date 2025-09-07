@@ -53,17 +53,55 @@ export const UserContextProvider = ({ children }) => {
   async function verifyOtp(otp, navigate) {
     setBtnLoading(true);
     const activationToken = localStorage.getItem("activationToken");
+    
+    if (!activationToken) {
+      toast.error("No activation token found. Please register again.");
+      setBtnLoading(false);
+      navigate("/register");
+      return;
+    }
+
+    if (!otp || otp.toString().length < 4) {
+      toast.error("Please enter a valid OTP");
+      setBtnLoading(false);
+      return;
+    }
+
     try {
       const { data } = await axios.post(`${server}/api/user/verify`, {
-        otp,
+        otp: Number(otp),
         activationToken,
       });
       toast.success(data.message);
+      localStorage.removeItem("activationToken");
+      setBtnLoading(false);
       navigate("/login");
-      localStorage.clear();
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || "Verification failed";
+      toast.error(errorMessage);
+      setBtnLoading(false);
+      
+      // If token is expired, redirect to register
+      if (errorMessage.includes("Expired") || errorMessage.includes("Invalid")) {
+        localStorage.removeItem("activationToken");
+        setTimeout(() => {
+          navigate("/register");
+        }, 2000);
+      }
+    }
+  }
+
+  async function resendOtp(email) {
+    setBtnLoading(true);
+    try {
+      const { data } = await axios.post(`${server}/api/user/resend-otp`, {
+        email,
+      });
+      toast.success(data.message);
       setBtnLoading(false);
     } catch (error) {
-      toast.error(error.response.data.message);
+      const errorMessage = error.response?.data?.message || "Failed to resend OTP";
+      toast.error(errorMessage);
       setBtnLoading(false);
     }
   }
@@ -101,6 +139,7 @@ export const UserContextProvider = ({ children }) => {
         loading,
         registerUser,
         verifyOtp,
+        resendOtp,
         fetchUser
       }}
     >

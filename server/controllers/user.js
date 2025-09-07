@@ -49,27 +49,64 @@ export const register = TryCatch(async (req, res) => {
 
 export const VerifyUser = TryCatch(async (req, res) => {
   const { otp, activationToken } = req.body;
-  const verify = jwt.verify(activationToken, process.env.Activation_Secret);
-
-  if (!verify)
+  
+  if (!activationToken) {
     return res.status(400).json({
-      message: "OTP Expired",
+      message: "Activation token is required",
+    });
+  }
+
+  if (!otp) {
+    return res.status(400).json({
+      message: "OTP is required",
+    });
+  }
+
+  try {
+    const verify = jwt.verify(activationToken, process.env.Activation_Secret);
+
+    if (!verify) {
+      return res.status(400).json({
+        message: "Invalid activation token",
+      });
+    }
+
+    if (verify.otp !== Number(otp)) {
+      return res.status(400).json({
+        message: "Wrong OTP",
+      });
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email: verify.user.email });
+    if (existingUser) {
+      return res.status(400).json({
+        message: "User already registered",
+      });
+    }
+
+    await User.create({
+      name: verify.user.name,
+      email: verify.user.email,
+      password: verify.user.password,
     });
 
-  if (verify.otp !== otp)
-    return res.status(400).json({
-      message: "Wrong OTP",
+    res.json({
+      message: "User Registered Successfully",
     });
-
-  await User.create({
-    name: verify.user.name,
-    email: verify.user.email,
-    password: verify.user.password,
-  });
-
-  res.json({
-    message: "User Registered",
-  });
+  } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      return res.status(400).json({
+        message: "OTP Expired",
+      });
+    }
+    if (error.name === 'JsonWebTokenError') {
+      return res.status(400).json({
+        message: "Invalid activation token",
+      });
+    }
+    throw error;
+  }
 });
 
 export const loginUser = TryCatch(async (req, res) => {
@@ -166,6 +203,105 @@ export const resetPassword = TryCatch(async (req, res) => {
   res.json({
     message: "Password Reset Successfully",
   });
+});
+
+// URL-based verification endpoint
+export const verifyByToken = TryCatch(async (req, res) => {
+  const { token } = req.params;
+  
+  if (!token) {
+    return res.status(400).json({
+      message: "Verification token is required",
+    });
+  }
+
+  try {
+    const verify = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (!verify) {
+      return res.status(400).json({
+        message: "Invalid verification token",
+      });
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email: verify.email });
+    if (existingUser) {
+      return res.status(400).json({
+        message: "User already registered",
+      });
+    }
+
+    // For URL-based verification, we need to get user data from somewhere
+    // This is a simplified version - in production, you might want to store temp user data
+    res.json({
+      message: "Please use the OTP verification method",
+      success: false,
+    });
+  } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      return res.status(400).json({
+        message: "Verification token expired",
+      });
+    }
+    if (error.name === 'JsonWebTokenError') {
+      return res.status(400).json({
+        message: "Invalid verification token",
+      });
+    }
+    throw error;
+  }
+});
+
+// Resend OTP endpoint
+export const resendOtp = TryCatch(async (req, res) => {
+  const { email } = req.body;
+  
+  if (!email) {
+    return res.status(400).json({
+      message: "Email is required",
+    });
+  }
+
+  // Check if user already exists
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    return res.status(400).json({
+      message: "User already registered",
+    });
+  }
+
+  // Generate new OTP and token
+  const otp = Math.floor(Math.random() * 1000000);
+  
+  const activationToken = jwt.sign(
+    {
+      email,
+      otp,
+    },
+    process.env.Activation_Secret,
+    {
+      expiresIn: "5m",
+    }
+  );
+
+  const data = {
+    name: email.split('@')[0], // Use email prefix as name
+    otp,
+  };
+
+  try {
+    await sendOtpMail(email, data);
+    res.json({
+      message: "OTP resent successfully",
+      activationToken,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to resend OTP",
+      error: error.message,
+    });
+  }
 });
 
 // Test email endpoint for debugging
