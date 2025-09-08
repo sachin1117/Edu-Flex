@@ -26,14 +26,19 @@ const CourseDescription = ({ user }) => {
     const token = localStorage.getItem("token");
     setLoading(true);
 
+    // Get order from backend
     const { data: { order }, } = await axios.post(`${server}/api/course/checkout/${params.id}`, {}, {
       headers: {
         token,
       },
     });
 
+    // Fetch Razorpay key securely from backend (no hardcoding on client)
+    const { data: keyData } = await axios.get(`${server}/api/razorpay-key`);
+    const razorpayKey = keyData?.key;
+
     const options = {
-      key: "rzp_test_SIRZUl8zxB8qmW",
+      key: razorpayKey,
       amount: order.amount,
       currency: "INR",
       name: "EduFlex",

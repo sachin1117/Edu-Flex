@@ -12,6 +12,11 @@ import { isAuth } from "../middlewares/isAuth.js";
 
 const router = express.Router();
 
+// Public endpoint to provide Razorpay key to client
+router.get("/razorpay-key", (req, res) => {
+  res.json({ key: process.env.Razorpay_Key || "" });
+});
+
 router.get("/course/all", getAllCourses);
 router.get("/course/:id", getSingleCourse);
 router.get("/lectures/:id", isAuth, fetchLectures);
