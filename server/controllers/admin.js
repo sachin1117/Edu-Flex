@@ -17,7 +17,8 @@ export const createCourse = TryCatch(async (req, res) => {
     description,
     category,
     createdBy,
-    image: image?.path,
+    // Normalize path to forward slashes for URL compatibility across OS
+    image: image?.path?.replace(/\\/g, "/"),
     duration,
     price,
   });
@@ -43,7 +44,8 @@ export const addLectures = TryCatch(async (req, res) => {
   const lecture = await Lecture.create({
     title,
     description,
-    video: file?.path,
+    // Normalize path to forward slashes to ensure valid URL
+    video: file?.path?.replace(/\\/g, "/"),
     course: course._id,
   });
 
